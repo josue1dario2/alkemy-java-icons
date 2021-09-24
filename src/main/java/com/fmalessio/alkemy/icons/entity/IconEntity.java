@@ -1,7 +1,9 @@
 package com.fmalessio.alkemy.icons.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "`icon`")
@@ -19,7 +21,8 @@ public class IconEntity {
     private String denominacion;
 
     @Column(name = "fecha_creacion")
-    private Date fechaCreacion;
+    @DateTimeFormat(pattern = "yyyy/MM/dd")
+    private LocalDate fechaCreacion;
 
     @Column
     private Long altura;
@@ -27,8 +30,8 @@ public class IconEntity {
     @Column
     private String historia;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "pais_id")
-    private PaisEntity pais;
+    //@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    //@JoinColumn(name = "pais_id")
+    // private PaisEntity pais;
 
 }
