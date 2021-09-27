@@ -1,9 +1,14 @@
 package com.fmalessio.alkemy.icons.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "`continente`")
+@Getter
+@Setter
 public class ContienenteEntity {
 
     @Id

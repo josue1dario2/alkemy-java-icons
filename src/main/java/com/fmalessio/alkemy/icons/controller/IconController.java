@@ -14,12 +14,12 @@ import java.util.List;
 @RestController
 @RequestMapping("icon")
 @CrossOrigin("*")
-public class IconoGeograficoController {
+public class IconController {
 
     private IconService iconService;
 
     @Autowired
-    public IconoGeograficoController(IconService iconService) {
+    public IconController(IconService iconService) {
         this.iconService = iconService;
     }
 

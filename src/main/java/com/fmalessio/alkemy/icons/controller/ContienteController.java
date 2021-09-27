@@ -1,5 +1,6 @@
 package com.fmalessio.alkemy.icons.controller;
 
+import com.fmalessio.alkemy.icons.dto.ContinenteDTO;
 import com.fmalessio.alkemy.icons.entity.ContienenteEntity;
 import com.fmalessio.alkemy.icons.service.ContinenteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,13 @@ public class ContienteController {
     List<ContienenteEntity> getAll() {
         List<ContienenteEntity> continentes = this.contienteService.getAllContinentes();
         return continentes;
+    }
+
+    @PostMapping
+    public @ResponseBody
+    ContienenteEntity save(@RequestBody ContinenteDTO continente) {
+        ContienenteEntity result = this.contienteService.save(continente);
+        return result;
     }
 
 }
