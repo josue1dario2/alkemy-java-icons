@@ -11,20 +11,17 @@ public class PaisEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @Column
     private String imagen;
 
-    @Column
     private String denominacion;
 
     @Column(name = "cant_habitantes")
     private Long cantidadHabitantes;
 
-    @Column
     private Long superficie; // m2
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "continente_id")
-    private ContienenteEntity continente;
+    // @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    // @JoinColumn(name = "continente_id")
+    // private ContienenteEntity continente;
 
 }
