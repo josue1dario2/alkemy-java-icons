@@ -28,8 +28,11 @@ public class PaisEntity {
     private Long superficie; // m2
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "continente_id")
+    @JoinColumn(name = "continente_id", insertable = false, updatable = false)
     private ContienenteEntity continente;
+
+    @Column(name = "continente_id", nullable = false)
+    private Long continenteId;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
