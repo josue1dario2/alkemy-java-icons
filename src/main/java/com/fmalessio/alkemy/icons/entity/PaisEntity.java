@@ -4,8 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "`pais`")
@@ -34,15 +34,7 @@ public class PaisEntity {
     @Column(name = "continente_id", nullable = false)
     private Long continenteId;
 
-    @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            })
-    @JoinTable(
-            name = "icon_pais",
-            joinColumns = @JoinColumn(name = "pais_id"),
-            inverseJoinColumns = @JoinColumn(name = "icon_id"))
-    private List<IconEntity> icons = new ArrayList<>();
+    @ManyToMany(mappedBy = "paises", cascade = CascadeType.ALL)
+    private Set<IconEntity> icons = new HashSet<>();
 
 }

@@ -6,7 +6,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -35,7 +34,15 @@ public class IconEntity {
     // @JoinColumn(name = "pais_id")
     // private PaisEntity pais;
 
-    @ManyToMany(mappedBy = "icons", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<PaisEntity> paises = new ArrayList<>();
+    @ManyToMany(
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            })
+    @JoinTable(
+            name = "icon_pais",
+            joinColumns = @JoinColumn(name = "icon_id"),
+            inverseJoinColumns = @JoinColumn(name = "pais_id"))
+    private List<PaisEntity> paises;
 
 }
