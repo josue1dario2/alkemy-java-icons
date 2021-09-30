@@ -4,6 +4,7 @@ import com.fmalessio.alkemy.icons.dto.PaisDTO;
 import com.fmalessio.alkemy.icons.entity.PaisEntity;
 import com.fmalessio.alkemy.icons.service.PaisService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,17 +22,15 @@ public class PaisController {
     }
 
     @GetMapping
-    public @ResponseBody
-    List<PaisEntity> getAll() {
+    public ResponseEntity<List<PaisEntity>> getAll() {
         List<PaisEntity> paises = this.paisService.getAllPaises();
-        return paises;
+        return ResponseEntity.ok().body(paises);
     }
 
     @PostMapping
-    public @ResponseBody
-    PaisEntity save(@RequestBody PaisDTO pais) {
+    public ResponseEntity<PaisEntity> save(@RequestBody PaisDTO pais) {
         PaisEntity result = this.paisService.save(pais);
-        return result;
+        return ResponseEntity.ok().body(result);
     }
 
 }

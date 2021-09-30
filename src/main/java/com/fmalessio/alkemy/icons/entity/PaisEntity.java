@@ -34,7 +34,11 @@ public class PaisEntity {
     @Column(name = "continente_id", nullable = false)
     private Long continenteId;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            })
     @JoinTable(
             name = "icon_pais",
             joinColumns = @JoinColumn(name = "pais_id"),
