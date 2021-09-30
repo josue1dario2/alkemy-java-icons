@@ -1,6 +1,5 @@
 package com.fmalessio.alkemy.icons.dto;
 
-import com.fmalessio.alkemy.icons.entity.PaisEntity;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,5 +14,5 @@ public class IconDTO {
     private String fechaCreacion;
     private Long altura;
     private String historia;
-    private List<PaisEntity> paises;
+    private List<PaisDTO> paises;
 }

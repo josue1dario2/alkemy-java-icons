@@ -14,6 +14,7 @@ public class IconController {
 
     private IconService iconService;
 
+
     @Autowired
     public IconController(IconService iconService) {
         this.iconService = iconService;

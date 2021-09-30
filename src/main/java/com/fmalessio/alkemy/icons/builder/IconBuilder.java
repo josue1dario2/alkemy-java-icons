@@ -1,6 +1,7 @@
 package com.fmalessio.alkemy.icons.builder;
 
 import com.fmalessio.alkemy.icons.dto.IconDTO;
+import com.fmalessio.alkemy.icons.dto.PaisDTO;
 import com.fmalessio.alkemy.icons.entity.PaisEntity;
 import lombok.Getter;
 import lombok.Setter;
@@ -47,7 +48,7 @@ public class IconBuilder {
         return this;
     }
 
-    public IconBuilder paises(List<PaisEntity> paises) {
+    public IconBuilder paises(List<PaisDTO> paises) {
         this.iconDTO.setPaises(paises);
         return this;
     }
