@@ -27,8 +27,8 @@ public class IconController {
     }
 
     @PostMapping
-    public ResponseEntity<IconEntity> save(@RequestBody IconDTO icon) {
-        IconEntity result = this.iconService.save(icon);
+    public ResponseEntity<IconDTO> save(@RequestBody IconDTO icon) {
+        IconDTO result = this.iconService.save(icon);
         return ResponseEntity.ok().body(result);
     }
 

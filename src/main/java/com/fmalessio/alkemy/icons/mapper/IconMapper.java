@@ -16,7 +16,7 @@ public class IconMapper {
     @Autowired
     private PaisMapper paisMapper;
 
-    public IconEntity IconDTO2Entity(IconDTO dto) {
+    public IconEntity iconDTO2Entity(IconDTO dto) {
         IconEntity entity = new IconEntity();
         entity.setImagen(dto.getImagen());
         entity.setDenominacion(dto.getDenominacion());
@@ -29,7 +29,7 @@ public class IconMapper {
         return entity;
     }
 
-    public IconDTO IconEntity2DTO(IconEntity entity) {
+    public IconDTO iconEntity2DTO(IconEntity entity) {
         IconDTO dto = new IconDTO();
         dto.setId(entity.getId());
         dto.setImagen(entity.getImagen());

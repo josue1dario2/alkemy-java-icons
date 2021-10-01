@@ -30,15 +30,16 @@ public class IconServiceImpl implements IconService {
     public IconDTO getIconById() {
         Optional<IconEntity> entity = this.iconRepository.findById(Long.valueOf(3));
         if (entity.isPresent()) {
-            IconDTO iconDTO = this.iconMapper.IconEntity2DTO(entity.get());
+            IconDTO iconDTO = this.iconMapper.iconEntity2DTO(entity.get());
             return iconDTO;
         }
         return null;
     }
 
-    public IconEntity save(IconDTO iconDTO) {
-        IconEntity entity = this.iconMapper.IconDTO2Entity(iconDTO);
-        IconEntity result = this.iconRepository.save(entity);
+    public IconDTO save(IconDTO iconDTO) {
+        IconEntity entity = this.iconMapper.iconDTO2Entity(iconDTO);
+        IconEntity entitySaved = this.iconRepository.save(entity);
+        IconDTO result = this.iconMapper.iconEntity2DTO(entitySaved);
         return result;
     }
 
