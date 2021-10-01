@@ -4,6 +4,9 @@ import com.fmalessio.alkemy.icons.dto.PaisDTO;
 import com.fmalessio.alkemy.icons.entity.PaisEntity;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
 public class PaisMapper {
 
@@ -15,6 +18,25 @@ public class PaisMapper {
         entity.setContinenteId(dto.getContinenteId());
         entity.setSuperficie(dto.getSuperficie());
         return entity;
+    }
+
+    public PaisDTO paisEntity2DTO(PaisEntity entity) {
+        PaisDTO dto = new PaisDTO();
+        dto.setId(entity.getId());
+        dto.setImagen(entity.getImagen());
+        dto.setDenominacion(entity.getDenominacion());
+        dto.setCantidadHabitantes(entity.getCantidadHabitantes());
+        dto.setContinenteId(entity.getContinenteId());
+        dto.setSuperficie(entity.getSuperficie());
+        return dto;
+    }
+
+    public List<PaisDTO> paisEntityList2DTOList(List<PaisEntity> entities) {
+        List<PaisDTO> dtos = new ArrayList<>();
+        for (PaisEntity entity : entities) {
+            dtos.add(this.paisEntity2DTO(entity));
+        }
+        return dtos;
     }
 
 }

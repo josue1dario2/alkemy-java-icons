@@ -22,13 +22,16 @@ public class ContinenteServiceImpl implements ContinenteService {
         this.continenteMapper = continenteMapper;
     }
 
-    public List<ContienenteEntity> getAllContinentes() {
-        return this.continenteRepository.findAll();
+    public List<ContinenteDTO> getAllContinentes() {
+        List<ContienenteEntity> entities = this.continenteRepository.findAll();
+        List<ContinenteDTO> result = this.continenteMapper.continenteEntityList2DTOList(entities);
+        return result;
     }
 
-    public ContienenteEntity save(ContinenteDTO continente) {
+    public ContinenteDTO save(ContinenteDTO continente) {
         ContienenteEntity contienenteEntity = this.continenteMapper.continenteDTO2Entity(continente);
-        ContienenteEntity result = this.continenteRepository.save(contienenteEntity);
+        ContienenteEntity entitySaved = this.continenteRepository.save(contienenteEntity);
+        ContinenteDTO result = this.continenteMapper.continenteEntity2DTO(entitySaved);
         return result;
     }
 

@@ -2,7 +2,6 @@ package com.fmalessio.alkemy.icons.service.impl;
 
 import com.fmalessio.alkemy.icons.dto.IconDTO;
 import com.fmalessio.alkemy.icons.entity.IconEntity;
-import com.fmalessio.alkemy.icons.entity.PaisEntity;
 import com.fmalessio.alkemy.icons.mapper.IconMapper;
 import com.fmalessio.alkemy.icons.repository.IconRepository;
 import com.fmalessio.alkemy.icons.repository.PaisRepository;
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -31,8 +29,11 @@ public class IconServiceImpl implements IconService {
     @Transactional
     public IconDTO getIconById() {
         Optional<IconEntity> entity = this.iconRepository.findById(Long.valueOf(3));
-        List<PaisEntity> paises = this.paisRepository.findByIcons_Id(Long.valueOf(3));
-        return entity.isPresent() ? this.iconMapper.IconEntity2DTO(entity.get(), paises) : null;
+        if (entity.isPresent()) {
+            IconDTO iconDTO = this.iconMapper.IconEntity2DTO(entity.get());
+            return iconDTO;
+        }
+        return null;
     }
 
     public IconEntity save(IconDTO iconDTO) {

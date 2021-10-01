@@ -7,8 +7,8 @@ import java.util.List;
 
 public interface ContinenteService {
 
-    List<ContienenteEntity> getAllContinentes();
+    List<ContinenteDTO> getAllContinentes();
 
-    ContienenteEntity save(ContinenteDTO continente);
+    ContinenteDTO save(ContinenteDTO continente);
 
 }

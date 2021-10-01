@@ -22,13 +22,16 @@ public class PaisServiceImpl implements PaisService {
         this.paisMapper = paisMapper;
     }
 
-    public List<PaisEntity> getAllPaises() {
-        return this.paisRepository.findAll();
+    public List<PaisDTO> getAllPaises() {
+        List<PaisEntity> entities = this.paisRepository.findAll();
+        List<PaisDTO> dtos = this.paisMapper.paisEntityList2DTOList(entities);
+        return dtos;
     }
 
-    public PaisEntity save(PaisDTO paisDTO) {
+    public PaisDTO save(PaisDTO paisDTO) {
         PaisEntity paisEntity = this.paisMapper.paisDTO2Entity(paisDTO);
-        PaisEntity result = this.paisRepository.save(paisEntity);
+        PaisEntity entitySaved = this.paisRepository.save(paisEntity);
+        PaisDTO result = this.paisMapper.paisEntity2DTO(entitySaved);
         return result;
     }
 

@@ -3,16 +3,18 @@ package com.fmalessio.alkemy.icons.mapper;
 import com.fmalessio.alkemy.icons.dto.IconDTO;
 import com.fmalessio.alkemy.icons.dto.PaisDTO;
 import com.fmalessio.alkemy.icons.entity.IconEntity;
-import com.fmalessio.alkemy.icons.entity.PaisEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 
 @Component
 public class IconMapper {
+
+    @Autowired
+    private PaisMapper paisMapper;
 
     public IconEntity IconDTO2Entity(IconDTO dto) {
         IconEntity entity = new IconEntity();
@@ -27,14 +29,17 @@ public class IconMapper {
         return entity;
     }
 
-    public IconDTO IconEntity2DTO(IconEntity entity, List<PaisEntity> paises) {
+    public IconDTO IconEntity2DTO(IconEntity entity) {
         IconDTO dto = new IconDTO();
+        dto.setId(entity.getId());
+        dto.setImagen(entity.getImagen());
+        dto.setDenominacion(entity.getDenominacion());
+        dto.setFechaCreacion(entity.getFechaCreacion().toString());
         dto.setAltura(entity.getAltura());
-        List<PaisDTO> paises1 = new ArrayList<>();
-        PaisDTO a = new PaisDTO();
-        a.setDenominacion(paises.get(0).getDenominacion());
-        paises1.add(a);
-        dto.setPaises(paises1);
+        dto.setHistoria(entity.getHistoria());
+
+        List<PaisDTO> paisesDTO = this.paisMapper.paisEntityList2DTOList(entity.getPaises());
+        dto.setPaises(paisesDTO);
         return dto;
     }
 

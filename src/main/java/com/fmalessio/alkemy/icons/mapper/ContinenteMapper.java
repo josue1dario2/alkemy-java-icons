@@ -5,6 +5,9 @@ import com.fmalessio.alkemy.icons.dto.ContinenteDTO;
 import com.fmalessio.alkemy.icons.entity.ContienenteEntity;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
 public class ContinenteMapper {
 
@@ -22,4 +25,19 @@ public class ContinenteMapper {
         return entity;
     }
 
+    public ContinenteDTO continenteEntity2DTO(ContienenteEntity entity) {
+        ContinenteDTO dto = new ContinenteDTO();
+        dto.setId(entity.getId());
+        dto.setImagen(entity.getImagen());
+        dto.setDenominacion(entity.getDenominacion());
+        return dto;
+    }
+
+    public List<ContinenteDTO> continenteEntityList2DTOList(List<ContienenteEntity> entities) {
+        List<ContinenteDTO> dtos = new ArrayList<>();
+        for (ContienenteEntity entity : entities) {
+            dtos.add(this.continenteEntity2DTO(entity));
+        }
+        return dtos;
+    }
 }
