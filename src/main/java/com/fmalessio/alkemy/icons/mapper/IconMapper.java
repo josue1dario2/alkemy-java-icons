@@ -3,6 +3,7 @@ package com.fmalessio.alkemy.icons.mapper;
 import com.fmalessio.alkemy.icons.dto.IconDTO;
 import com.fmalessio.alkemy.icons.dto.PaisDTO;
 import com.fmalessio.alkemy.icons.entity.IconEntity;
+import com.fmalessio.alkemy.icons.entity.PaisEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -25,7 +26,9 @@ public class IconMapper {
         );
         entity.setAltura(dto.getAltura());
         entity.setHistoria(dto.getHistoria());
-        //entity.setPaises(dto.getPaises());
+        // Paises
+        List<PaisEntity> paises = this.paisMapper.paisDTOList2Entity(dto.getPaises());
+        entity.setPaises(paises);
         return entity;
     }
 
@@ -49,4 +52,13 @@ public class IconMapper {
         return date;
     }
 
+    public void iconEntityRefreshValues(IconEntity entity, IconDTO iconDTO) {
+        entity.setImagen(iconDTO.getImagen());
+        entity.setDenominacion(iconDTO.getDenominacion());
+        entity.setFechaCreacion(
+                this.String2LocalDate(iconDTO.getFechaCreacion())
+        );
+        entity.setAltura(iconDTO.getAltura());
+        entity.setHistoria(iconDTO.getHistoria());
+    }
 }

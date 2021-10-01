@@ -6,6 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -43,6 +44,14 @@ public class IconEntity {
             name = "icon_pais",
             joinColumns = @JoinColumn(name = "icon_id"),
             inverseJoinColumns = @JoinColumn(name = "pais_id"))
-    private List<PaisEntity> paises;
+    private List<PaisEntity> paises = new ArrayList<>();
 
+    // Add and remove paises
+    public void addPais(PaisEntity pais) {
+        this.paises.add(pais);
+    }
+
+    public void removePais(PaisEntity pais) {
+        this.paises.remove(pais);
+    }
 }

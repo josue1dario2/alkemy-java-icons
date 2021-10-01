@@ -35,4 +35,8 @@ public class PaisServiceImpl implements PaisService {
         return result;
     }
 
+    public PaisEntity getEntityById(Long id) {
+        return this.paisRepository.getById(id);
+    }
+
 }

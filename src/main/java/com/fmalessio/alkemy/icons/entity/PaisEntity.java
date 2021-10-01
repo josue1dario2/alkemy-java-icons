@@ -37,4 +37,16 @@ public class PaisEntity {
     @ManyToMany(mappedBy = "paises", cascade = CascadeType.ALL)
     private Set<IconEntity> icons = new HashSet<>();
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final PaisEntity other = (PaisEntity) obj;
+        return other.id == this.id;
+    }
+
 }

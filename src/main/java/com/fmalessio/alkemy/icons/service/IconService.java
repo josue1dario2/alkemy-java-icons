@@ -8,4 +8,9 @@ public interface IconService {
 
     IconDTO save(IconDTO iconDTO);
 
+    IconDTO update(Long id, IconDTO icon);
+
+    void addPais(Long id, Long idPais);
+
+    void removePais(Long id, Long idPais);
 }

@@ -39,4 +39,12 @@ public class PaisMapper {
         return dtos;
     }
 
+    public List<PaisEntity> paisDTOList2Entity(List<PaisDTO> dtos) {
+        List<PaisEntity> entities = new ArrayList<>();
+        for (PaisDTO dto : dtos) {
+            entities.add(this.paisDTO2Entity(dto));
+        }
+        return entities;
+    }
+
 }
