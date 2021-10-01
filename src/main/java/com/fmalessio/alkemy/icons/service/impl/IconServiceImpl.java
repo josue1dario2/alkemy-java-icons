@@ -31,8 +31,8 @@ public class IconServiceImpl implements IconService {
     }
 
     @Transactional
-    public IconDTO getIconById() {
-        Optional<IconEntity> entity = this.iconRepository.findById(Long.valueOf(3));
+    public IconDTO getDetailsById(Long id) {
+        Optional<IconEntity> entity = this.iconRepository.findById(id);
         if (entity.isPresent()) {
             IconDTO iconDTO = this.iconMapper.iconEntity2DTO(entity.get());
             return iconDTO;
@@ -69,6 +69,10 @@ public class IconServiceImpl implements IconService {
         PaisEntity paisEntity = this.paisService.getEntityById(idPais);
         entity.removePais(paisEntity);
         this.iconRepository.save(entity);
+    }
+
+    public void delete(Long id) {
+        this.iconRepository.deleteById(id);
     }
 
 }

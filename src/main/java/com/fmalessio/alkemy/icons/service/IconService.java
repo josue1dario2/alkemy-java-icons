@@ -4,7 +4,7 @@ import com.fmalessio.alkemy.icons.dto.IconDTO;
 
 public interface IconService {
 
-    IconDTO getIconById();
+    IconDTO getDetailsById(Long id);
 
     IconDTO save(IconDTO iconDTO);
 
@@ -13,4 +13,6 @@ public interface IconService {
     void addPais(Long id, Long idPais);
 
     void removePais(Long id, Long idPais);
+
+    void delete(Long id);
 }

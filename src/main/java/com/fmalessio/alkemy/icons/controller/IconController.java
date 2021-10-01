@@ -19,9 +19,9 @@ public class IconController {
         this.iconService = iconService;
     }
 
-    @GetMapping
-    public ResponseEntity<IconDTO> getAllIcons() {
-        IconDTO icon = this.iconService.getIconById();
+    @GetMapping("/{id}")
+    public ResponseEntity<IconDTO> getDetailsById(@PathVariable Long id) {
+        IconDTO icon = this.iconService.getDetailsById(id);
         return ResponseEntity.ok(icon);
     }
 
@@ -35,6 +35,12 @@ public class IconController {
     public ResponseEntity<IconDTO> update(@PathVariable Long id, @RequestBody IconDTO icon) {
         IconDTO result = this.iconService.update(id, icon);
         return ResponseEntity.ok().body(result);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        this.iconService.delete(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @PostMapping("/{id}/pais/{idPais}")
