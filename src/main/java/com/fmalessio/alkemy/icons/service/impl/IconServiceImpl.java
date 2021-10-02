@@ -3,6 +3,7 @@ package com.fmalessio.alkemy.icons.service.impl;
 import com.fmalessio.alkemy.icons.dto.IconDTO;
 import com.fmalessio.alkemy.icons.entity.IconEntity;
 import com.fmalessio.alkemy.icons.entity.PaisEntity;
+import com.fmalessio.alkemy.icons.exception.ParamNotFound;
 import com.fmalessio.alkemy.icons.mapper.IconMapper;
 import com.fmalessio.alkemy.icons.repository.IconRepository;
 import com.fmalessio.alkemy.icons.service.IconService;
@@ -33,11 +34,11 @@ public class IconServiceImpl implements IconService {
     @Transactional
     public IconDTO getDetailsById(Long id) {
         Optional<IconEntity> entity = this.iconRepository.findById(id);
-        if (entity.isPresent()) {
-            IconDTO iconDTO = this.iconMapper.iconEntity2DTO(entity.get());
-            return iconDTO;
+        if (!entity.isPresent()) {
+            throw new ParamNotFound("Id icono no valido");
         }
-        return null;
+        IconDTO iconDTO = this.iconMapper.iconEntity2DTO(entity.get());
+        return iconDTO;
     }
 
     public IconDTO save(IconDTO iconDTO) {
