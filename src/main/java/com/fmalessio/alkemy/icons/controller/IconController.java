@@ -7,6 +7,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Set;
+
 @RestController
 @RequestMapping("icon")
 @CrossOrigin("*")
@@ -23,6 +26,17 @@ public class IconController {
     public ResponseEntity<IconDTO> getDetailsById(@PathVariable Long id) {
         IconDTO icon = this.iconService.getDetailsById(id);
         return ResponseEntity.ok(icon);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<IconDTO>> getDetailsByFilters(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String date,
+            @RequestParam(required = false) Set<Long> cities,
+            @RequestParam(required = false, defaultValue = "ASC") String order
+    ) {
+        List<IconDTO> icons = this.iconService.getByFilters(name, date, cities, order);
+        return ResponseEntity.ok(icons);
     }
 
     @PostMapping

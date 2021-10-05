@@ -1,31 +1,41 @@
 package com.fmalessio.alkemy.icons.service.impl;
 
 import com.fmalessio.alkemy.icons.dto.IconDTO;
+import com.fmalessio.alkemy.icons.dto.IconFiltersDTO;
 import com.fmalessio.alkemy.icons.entity.IconEntity;
 import com.fmalessio.alkemy.icons.entity.PaisEntity;
 import com.fmalessio.alkemy.icons.exception.ParamNotFound;
 import com.fmalessio.alkemy.icons.mapper.IconMapper;
 import com.fmalessio.alkemy.icons.repository.IconRepository;
+import com.fmalessio.alkemy.icons.repository.specifications.IconSpecification;
 import com.fmalessio.alkemy.icons.service.IconService;
 import com.fmalessio.alkemy.icons.service.PaisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class IconServiceImpl implements IconService {
 
-    IconRepository iconRepository;
-    IconMapper iconMapper;
-    PaisService paisService;
+    // Repo
+    private IconRepository iconRepository;
+    private IconSpecification iconSpecification;
+    // Mapper
+    private IconMapper iconMapper;
+    // Services
+    private PaisService paisService;
 
     @Autowired
     public IconServiceImpl(
             IconRepository iconRepository,
+            IconSpecification iconSpecification,
             PaisService paisService,
             IconMapper iconMapper) {
         this.iconRepository = iconRepository;
+        this.iconSpecification = iconSpecification;
         this.iconMapper = iconMapper;
         this.paisService = paisService;
     }
@@ -37,6 +47,13 @@ public class IconServiceImpl implements IconService {
         }
         IconDTO iconDTO = this.iconMapper.iconEntity2DTO(entity.get(), true);
         return iconDTO;
+    }
+
+    public List<IconDTO> getByFilters(String name, String date, Set<Long> cities, String order) {
+        IconFiltersDTO filtersDTO = new IconFiltersDTO(name, date, cities, order);
+        List<IconEntity> entities = this.iconRepository.findAll(this.iconSpecification.getByFilters(filtersDTO));
+        List<IconDTO> dtos = this.iconMapper.iconEntitySet2DTOList(entities, true);
+        return dtos;
     }
 
     public IconDTO save(IconDTO iconDTO) {

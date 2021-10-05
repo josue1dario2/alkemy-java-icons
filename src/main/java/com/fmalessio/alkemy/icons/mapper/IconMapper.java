@@ -8,10 +8,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Component
 public class IconMapper {
@@ -70,11 +67,16 @@ public class IconMapper {
         return entities;
     }
 
-    public List<IconDTO> iconEntitySet2DTOList(Set<IconEntity> entities, boolean loadPaises) {
+    /**
+     * @param entities   (Set or List)
+     * @param loadPaises
+     */
+    public List<IconDTO> iconEntitySet2DTOList(Collection<IconEntity> entities, boolean loadPaises) {
         List<IconDTO> dtos = new ArrayList<>();
         for (IconEntity entity : entities) {
             dtos.add(this.iconEntity2DTO(entity, loadPaises));
         }
         return dtos;
     }
+
 }
