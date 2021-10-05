@@ -41,15 +41,7 @@ public class IconEntity {
     // @JoinColumn(name = "pais_id")
     // private PaisEntity pais;
 
-    @ManyToMany(
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            })
-    @JoinTable(
-            name = "icon_pais",
-            joinColumns = @JoinColumn(name = "icon_id"),
-            inverseJoinColumns = @JoinColumn(name = "pais_id"))
+    @ManyToMany(mappedBy = "icons", cascade = CascadeType.ALL)
     private List<PaisEntity> paises = new ArrayList<>();
 
     // Add and remove paises

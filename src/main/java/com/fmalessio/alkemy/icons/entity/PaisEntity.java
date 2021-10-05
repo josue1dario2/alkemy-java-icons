@@ -34,13 +34,19 @@ public class PaisEntity {
     @Column(name = "continente_id", nullable = false)
     private Long continenteId;
 
-    @ManyToMany(mappedBy = "paises", cascade = CascadeType.ALL)
+    @ManyToMany(
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            })
+    @JoinTable(
+            name = "icon_pais",
+            joinColumns = @JoinColumn(name = "pais_id"),
+            inverseJoinColumns = @JoinColumn(name = "icon_id"))
     private Set<IconEntity> icons = new HashSet<>();
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
         if (obj == null)
             return false;
         if (getClass() != obj.getClass())

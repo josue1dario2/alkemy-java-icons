@@ -3,13 +3,15 @@ package com.fmalessio.alkemy.icons.mapper;
 import com.fmalessio.alkemy.icons.dto.IconDTO;
 import com.fmalessio.alkemy.icons.dto.PaisDTO;
 import com.fmalessio.alkemy.icons.entity.IconEntity;
-import com.fmalessio.alkemy.icons.entity.PaisEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Component
 public class IconMapper {
@@ -22,13 +24,10 @@ public class IconMapper {
         entity.setImagen(dto.getImagen());
         entity.setDenominacion(dto.getDenominacion());
         entity.setFechaCreacion(
-                this.String2LocalDate(dto.getFechaCreacion())
+                this.string2LocalDate(dto.getFechaCreacion())
         );
         entity.setAltura(dto.getAltura());
         entity.setHistoria(dto.getHistoria());
-        // Paises
-        List<PaisEntity> paises = this.paisMapper.paisDTOList2Entity(dto.getPaises());
-        entity.setPaises(paises);
         return entity;
     }
 
@@ -40,13 +39,17 @@ public class IconMapper {
         dto.setFechaCreacion(entity.getFechaCreacion().toString());
         dto.setAltura(entity.getAltura());
         dto.setHistoria(entity.getHistoria());
+        return dto;
+    }
 
+    public IconDTO iconEntity2DTOWithPaises(IconEntity entity) {
+        IconDTO dto = this.iconEntity2DTO(entity);
         List<PaisDTO> paisesDTO = this.paisMapper.paisEntityList2DTOList(entity.getPaises());
         dto.setPaises(paisesDTO);
         return dto;
     }
 
-    private LocalDate String2LocalDate(String stringDate) {
+    private LocalDate string2LocalDate(String stringDate) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate date = LocalDate.parse(stringDate, formatter);
         return date;
@@ -56,9 +59,25 @@ public class IconMapper {
         entity.setImagen(iconDTO.getImagen());
         entity.setDenominacion(iconDTO.getDenominacion());
         entity.setFechaCreacion(
-                this.String2LocalDate(iconDTO.getFechaCreacion())
+                this.string2LocalDate(iconDTO.getFechaCreacion())
         );
         entity.setAltura(iconDTO.getAltura());
         entity.setHistoria(iconDTO.getHistoria());
+    }
+
+    public Set<IconEntity> iconDTOList2Entity(List<IconDTO> dtos) {
+        Set<IconEntity> entities = new HashSet<>();
+        for (IconDTO dto : dtos) {
+            entities.add(this.iconDTO2Entity(dto));
+        }
+        return entities;
+    }
+
+    public List<IconDTO> iconEntitySet2DTOList(Set<IconEntity> entities) {
+        List<IconDTO> dtos = new ArrayList<>();
+        for (IconEntity entity : entities) {
+            dtos.add(this.iconEntity2DTO(entity));
+        }
+        return dtos;
     }
 }

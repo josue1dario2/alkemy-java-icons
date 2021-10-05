@@ -37,7 +37,7 @@ public class IconServiceImpl implements IconService {
         if (!entity.isPresent()) {
             throw new ParamNotFound("Id icono no valido");
         }
-        IconDTO iconDTO = this.iconMapper.iconEntity2DTO(entity.get());
+        IconDTO iconDTO = this.iconMapper.iconEntity2DTOWithPaises(entity.get());
         return iconDTO;
     }
 

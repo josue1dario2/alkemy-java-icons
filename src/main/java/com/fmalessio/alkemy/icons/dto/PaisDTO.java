@@ -3,6 +3,8 @@ package com.fmalessio.alkemy.icons.dto;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 public class PaisDTO {
@@ -12,4 +14,5 @@ public class PaisDTO {
     private Long cantidadHabitantes;
     private Long superficie;
     private Long continenteId;
+    private List<IconDTO> icons;
 }

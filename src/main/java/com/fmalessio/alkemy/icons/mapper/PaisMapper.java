@@ -1,14 +1,21 @@
 package com.fmalessio.alkemy.icons.mapper;
 
+import com.fmalessio.alkemy.icons.dto.IconDTO;
 import com.fmalessio.alkemy.icons.dto.PaisDTO;
+import com.fmalessio.alkemy.icons.entity.IconEntity;
 import com.fmalessio.alkemy.icons.entity.PaisEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Component
 public class PaisMapper {
+
+    @Autowired
+    private IconMapper iconMapper;
 
     public PaisEntity paisDTO2Entity(PaisDTO dto) {
         PaisEntity entity = new PaisEntity();
@@ -17,6 +24,9 @@ public class PaisMapper {
         entity.setCantidadHabitantes(dto.getCantidadHabitantes());
         entity.setContinenteId(dto.getContinenteId());
         entity.setSuperficie(dto.getSuperficie());
+        // icons
+        Set<IconEntity> icons = this.iconMapper.iconDTOList2Entity(dto.getIcons());
+        entity.setIcons(icons);
         return entity;
     }
 
@@ -28,6 +38,9 @@ public class PaisMapper {
         dto.setCantidadHabitantes(entity.getCantidadHabitantes());
         dto.setContinenteId(entity.getContinenteId());
         dto.setSuperficie(entity.getSuperficie());
+        // Icons
+        List<IconDTO> iconDTOS = this.iconMapper.iconEntitySet2DTOList(entity.getIcons());
+        dto.setIcons(iconDTOS);
         return dto;
     }
 
