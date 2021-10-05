@@ -31,7 +31,7 @@ public class IconMapper {
         return entity;
     }
 
-    public IconDTO iconEntity2DTO(IconEntity entity) {
+    public IconDTO iconEntity2DTO(IconEntity entity, boolean loadPaises) {
         IconDTO dto = new IconDTO();
         dto.setId(entity.getId());
         dto.setImagen(entity.getImagen());
@@ -39,13 +39,10 @@ public class IconMapper {
         dto.setFechaCreacion(entity.getFechaCreacion().toString());
         dto.setAltura(entity.getAltura());
         dto.setHistoria(entity.getHistoria());
-        return dto;
-    }
-
-    public IconDTO iconEntity2DTOWithPaises(IconEntity entity) {
-        IconDTO dto = this.iconEntity2DTO(entity);
-        List<PaisDTO> paisesDTO = this.paisMapper.paisEntityList2DTOList(entity.getPaises());
-        dto.setPaises(paisesDTO);
+        if (loadPaises) {
+            List<PaisDTO> paisesDTO = this.paisMapper.paisEntityList2DTOList(entity.getPaises(), false);
+            dto.setPaises(paisesDTO);
+        }
         return dto;
     }
 
@@ -73,10 +70,10 @@ public class IconMapper {
         return entities;
     }
 
-    public List<IconDTO> iconEntitySet2DTOList(Set<IconEntity> entities) {
+    public List<IconDTO> iconEntitySet2DTOList(Set<IconEntity> entities, boolean loadPaises) {
         List<IconDTO> dtos = new ArrayList<>();
         for (IconEntity entity : entities) {
-            dtos.add(this.iconEntity2DTO(entity));
+            dtos.add(this.iconEntity2DTO(entity, loadPaises));
         }
         return dtos;
     }

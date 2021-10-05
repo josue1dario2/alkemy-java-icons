@@ -30,7 +30,7 @@ public class PaisMapper {
         return entity;
     }
 
-    public PaisDTO paisEntity2DTO(PaisEntity entity) {
+    public PaisDTO paisEntity2DTO(PaisEntity entity, boolean loadIcons) {
         PaisDTO dto = new PaisDTO();
         dto.setId(entity.getId());
         dto.setImagen(entity.getImagen());
@@ -38,16 +38,17 @@ public class PaisMapper {
         dto.setCantidadHabitantes(entity.getCantidadHabitantes());
         dto.setContinenteId(entity.getContinenteId());
         dto.setSuperficie(entity.getSuperficie());
-        // Icons
-        List<IconDTO> iconDTOS = this.iconMapper.iconEntitySet2DTOList(entity.getIcons());
-        dto.setIcons(iconDTOS);
+        if(loadIcons) {
+            List<IconDTO> iconDTOS = this.iconMapper.iconEntitySet2DTOList(entity.getIcons(), false);
+            dto.setIcons(iconDTOS);
+        }
         return dto;
     }
 
-    public List<PaisDTO> paisEntityList2DTOList(List<PaisEntity> entities) {
+    public List<PaisDTO> paisEntityList2DTOList(List<PaisEntity> entities, boolean loadIcons) {
         List<PaisDTO> dtos = new ArrayList<>();
         for (PaisEntity entity : entities) {
-            dtos.add(this.paisEntity2DTO(entity));
+            dtos.add(this.paisEntity2DTO(entity, loadIcons));
         }
         return dtos;
     }

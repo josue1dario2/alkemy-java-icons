@@ -11,7 +11,6 @@ import com.fmalessio.alkemy.icons.service.PaisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.Optional;
 
 @Service
@@ -31,20 +30,19 @@ public class IconServiceImpl implements IconService {
         this.paisService = paisService;
     }
 
-    @Transactional
     public IconDTO getDetailsById(Long id) {
         Optional<IconEntity> entity = this.iconRepository.findById(id);
         if (!entity.isPresent()) {
             throw new ParamNotFound("Id icono no valido");
         }
-        IconDTO iconDTO = this.iconMapper.iconEntity2DTOWithPaises(entity.get());
+        IconDTO iconDTO = this.iconMapper.iconEntity2DTO(entity.get(), true);
         return iconDTO;
     }
 
     public IconDTO save(IconDTO iconDTO) {
         IconEntity entity = this.iconMapper.iconDTO2Entity(iconDTO);
         IconEntity entitySaved = this.iconRepository.save(entity);
-        IconDTO result = this.iconMapper.iconEntity2DTO(entitySaved);
+        IconDTO result = this.iconMapper.iconEntity2DTO(entitySaved, false);
         return result;
     }
 
@@ -52,7 +50,7 @@ public class IconServiceImpl implements IconService {
         IconEntity entity = this.iconRepository.getById(id);
         this.iconMapper.iconEntityRefreshValues(entity, iconDTO);
         IconEntity entitySaved = this.iconRepository.save(entity);
-        IconDTO result = this.iconMapper.iconEntity2DTO(entitySaved);
+        IconDTO result = this.iconMapper.iconEntity2DTO(entitySaved, false);
         return result;
     }
 
