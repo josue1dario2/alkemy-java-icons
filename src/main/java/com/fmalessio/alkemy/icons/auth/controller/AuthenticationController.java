@@ -28,7 +28,7 @@ public class AuthenticationController {
     @PostMapping
     public ResponseEntity<AuthenticationResponse> singIn(@RequestBody AuthenticationRequest authRequest) throws Exception {
 
-        UserDetails userDetails = null;
+        UserDetails userDetails;
         try {
             Authentication auth = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword())
